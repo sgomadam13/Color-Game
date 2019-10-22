@@ -24,7 +24,6 @@ document.getElementById("reset").addEventListener("click", function() {
 
 
 function setupModeButtons() {
-    console.log("step into setupModeButtons()");
     for(var i=0; i<modeButtons.length; i++) {
         modeButtons[i].addEventListener("click", function() {
             modeButtons[0].classList.remove("selected");
@@ -36,24 +35,21 @@ function setupModeButtons() {
 }
 
 function setupSquares() {
-    console.log("step into setupSquares()");
 
     for(var i=0; i<squares.length; i++) {
         squares[i].addEventListener("click", function (){
            console.log("click listener");
             //grab the clicked background color
             var clickedColor = this.style.backgroundColor;
-            console.log("clicked color " + clickedColor);
 
             //compare with the picked color
             if(clickedColor === chosenColor) {
-                console.log("chosen color " + chosenColor);
-                console.log("clicked color " + clickedColor);
                 //color the header background chosen color
                 document.querySelector("h1").style.background = chosenColor;
 
                 //Write the message "correct"
                 document.getElementById("message").textContent = "Correct!";
+                document.querySelector("#reset").textContent = "Play Again"
 
                 //color all the squares the chosen color
                 for(var i = 0; i < squares.length; i++) {
@@ -71,16 +67,16 @@ function setupSquares() {
 }
 
 function reset() {
-    console.log("step into reset() " + numSquares);
     //delete any existing message
     document.getElementById("message").textContent = "";
     document.querySelector("h1").style.background = "steelblue";
+    document.querySelector("#reset").textContent = "New Colors"
+
     generateRandomColors(numSquares);
 
 }
 
 function generateRandomColors(num) {
-    console.log("step into generateRandomColors(num) " + num);
     emptyArray();
 
 //add random colors to the array
@@ -88,11 +84,8 @@ function generateRandomColors(num) {
        randomColorsArray.push(randomColors());
     }
 
-    console.log("random colors "+ randomColorsArray[0]);
-
 //Pick a random color from the array as the chosen color
     chosenColor = pickColor();
-    console.log(chosenColor);
 
 //Write the chosen color on the header
 colorTextDisplay();  
@@ -103,9 +96,7 @@ colorTheSquares();
 }
 
 function pickColor() {
-    console.log("step into pickColor()");
     var random = Math.floor(Math.random() * randomColorsArray.length);
-    console.log("random "+ random);
     return randomColorsArray[random];
 }
 
@@ -123,7 +114,6 @@ function randomColors() {
     //pick a "blue" from 0 - 255
     var randomBlue = Math.floor(Math.random() * 256);
 
-    console.log("red " + randomRed + " green " + randomGreen + " blue " + randomBlue)
     return ("rgb("+ randomRed + ", " + randomGreen + ", " + randomBlue + ")" );
     
 }
@@ -133,7 +123,6 @@ function colorTextDisplay() {
 }
 
 function colorTheSquares() {
-    console.log("step into colorTheSquares() " + squares.length);
     for (var i=0; i<squares.length; i++) {
         if(randomColorsArray[i]) {
             squares[i].style.display = "block"
